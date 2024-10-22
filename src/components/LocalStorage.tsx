@@ -24,7 +24,8 @@ function setupLocalStorage() {
 
   for (const filename in filenames) {
     // load initial values
-    const value = localStorage.getItem(filename);
+    const pathPlusFilename = `/${tutorialStore.lesson?.filepath}${filename}`;
+    const value = localStorage.getItem(pathPlusFilename);
 
     if (value) {
       tutorialStore.updateFile(filename, value);
@@ -32,7 +33,12 @@ function setupLocalStorage() {
 
     // reflect changes in local storage
     const unsubscribe = tutorialStore.onDocumentChanged(filename, (doc) => {
-      localStorage.setItem(filename, doc.value.toString());
+      if (
+        pathPlusFilename.includes(window.location.pathname) &&
+        doc.loading === false
+      ) {
+        localStorage.setItem(pathPlusFilename, doc.value.toString());
+      }
     });
 
     cleanups.push(unsubscribe);
