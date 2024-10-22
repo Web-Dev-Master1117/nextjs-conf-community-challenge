@@ -1,13 +1,14 @@
 ---
 type: lesson
-title: Challenge I
+title: Challenge II
 focus: /app/page.tsx
+previews: false
 ---
 
 import LocalStorage from "@components/LocalStorage";
 import Prettier from "@components/Prettier";
 
-# Challenge I
-
 <LocalStorage client:load />
 <Prettier client:load />
+
+# Challenge II: CMD+K UI
