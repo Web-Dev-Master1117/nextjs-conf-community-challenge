@@ -15,12 +15,11 @@ export default function LocalStorage() {
     return () => cleanupRef.current();
   }, []);
 
-  return null;
+  return <></>;
 }
 
 function setupLocalStorage() {
   const filenames = tutorialStore.documents.get();
-  console.log("filenames", filenames);
   const cleanups: (() => void)[] = [];
 
   for (const filename in filenames) {
