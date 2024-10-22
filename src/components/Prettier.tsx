@@ -37,7 +37,6 @@ function setupPrettier() {
 
       timeout = setTimeout(async () => {
         const code = await prettier.format(doc.value.toString(), {
-          semi: false,
           parser: "typescript",
           plugins: [ts, estree],
         });
