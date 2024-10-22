@@ -8,7 +8,8 @@
     "build": "astro check && astro build",
     "dev": "astro dev",
     "preview": "astro preview",
-    "start": "astro dev"
+    "start": "astro dev",
+    "type-check": "tsc"
   },
   "dependencies": {
     "@tutorialkit/react": "1.0.0",

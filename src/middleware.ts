@@ -1,4 +1,9 @@
-export function onRequest(context, next) {
+import type { AstroGlobal } from "astro";
+
+export function onRequest(
+  context: AstroGlobal,
+  next: () => Promise<Response>
+): Promise<Response> {
   if (context.url.pathname.endsWith("2-challenge")) {
     return context.rewrite(
       new URL(
