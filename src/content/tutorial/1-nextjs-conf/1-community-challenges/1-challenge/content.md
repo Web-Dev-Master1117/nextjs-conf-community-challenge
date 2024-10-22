@@ -5,3 +5,6 @@ focus: /app/page.tsx
 ---
 
 # Challenge I
+
+<LocalStorage client:load />
+<Prettier client:load />
