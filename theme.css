@@ -1,0 +1,6 @@
+.content-nav-card,
+a[href="https://webcontainers.io/"],
+header .i-ph-arrow-left,
+header .i-ph-arrow-right {
+  display: none;
+}
