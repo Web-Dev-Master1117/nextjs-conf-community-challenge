@@ -18,7 +18,7 @@ export async function onRequest(
 
   if (
     context.url.pathname.endsWith("challenge-1") &&
-    (!challengesEnabled.challengeOne || true)
+    !challengesEnabled.challengeOne
   ) {
     return context.redirect("/1-nextjs-conf/1-community-challenges/1-welcome");
   }
