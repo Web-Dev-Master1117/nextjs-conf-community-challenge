@@ -1,26 +1,45 @@
 import type { AstroGlobal } from "astro";
+import { createClient } from "@vercel/edge-config";
 
-export function onRequest(
+interface ChallengesEnabled {
+  challengeOne: boolean;
+  challengeTwo: boolean;
+  challengeThree: boolean;
+}
+
+export async function onRequest(
   context: AstroGlobal,
   next: () => Promise<Response>
 ): Promise<Response> {
-  // if (context.url.pathname.endsWith("2-challenge")) {
-  //   return context.rewrite(
-  //     new URL(
-  //       "/1-nextjs-conf/1-community-challenges/1-challenge",
-  //       context.request.url
-  //     )
-  //   );
-  // }
+  const edgeConfig = createClient(import.meta.env.EDGE_CONFIG);
+  const challengesEnabled = (await edgeConfig.get(
+    "challengesEnabled"
+  )) as ChallengesEnabled;
 
-  // if (context.url.pathname.endsWith("3-challenge")) {
-  //   return context.rewrite(
-  //     new URL(
-  //       "/1-nextjs-conf/1-community-challenges/2-challenge",
-  //       context.request.url
-  //     )
-  //   );
-  // }
+  if (
+    context.url.pathname.endsWith("challenge-1") &&
+    (!challengesEnabled.challengeOne || true)
+  ) {
+    return context.redirect("/1-nextjs-conf/1-community-challenges/1-welcome");
+  }
+
+  if (
+    context.url.pathname.endsWith("challenge-2") &&
+    !challengesEnabled.challengeTwo
+  ) {
+    return context.redirect(
+      "/1-nextjs-conf/1-community-challenges/2-challenge-1"
+    );
+  }
+
+  if (
+    context.url.pathname.endsWith("challenge-3") &&
+    !challengesEnabled.challengeThree
+  ) {
+    return context.redirect(
+      "/1-nextjs-conf/1-community-challenges/3-challenge-2"
+    );
+  }
 
   return next();
 }
