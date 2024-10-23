@@ -7,21 +7,38 @@ previews: false
 
 import LocalStorage from "@components/LocalStorage";
 import Prettier from "@components/Prettier";
+import EnlargeImage from "@components/EnlargeImage";
 
 <LocalStorage client:load />
 <Prettier client:load />
 
-## What is this?
+#### Introductions
 
-- Context: Coding competition, code in the dark, blindfold battles
+- Edward Shturman, University of San Francisco
+- Michael Novotny, Vercel
+- Matt Jared, Vercel
+- Dan Fein, Vercel
+
+#### What is this?
+
+- Coding competition, code in the dark, blindfold battles
 - 3 x 30 minute challenges
-- 4 head-to-head competitors, audience can help or troll
+- 4 head-to-head competitors, audience can help (or troll)
 - Whoever gets the closest (doesn't have to be perfect), wins
 
-## What you get
+#### What you get
 
-- Editor
-- Terminal (for compilation errors)
-- Screenshot
-- Asset links
-- **_NO PREVIEWS_** (from here on out)
+- Editor (VS Code, autocomplete, prettier, local storage)
+- Terminal (compilation errors)
+- Screenshot (example below)
+- Asset links (i.e. `some-image.svg`)
+
+#### Rules
+
+- **_NO PREVIEWS_** (aka. dark/blindfold)
+- No leaving the battleground
+- Need help? Ask!
+
+#### Screenshot example
+
+<EnlargeImage client:load src="/example-screenshot.svg" />
