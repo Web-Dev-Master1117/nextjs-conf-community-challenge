@@ -1,5 +1,6 @@
 import estree from "prettier/plugins/estree";
 import ts from "prettier/plugins/typescript";
+import postcss from "prettier/plugins/postcss";
 import * as prettier from "prettier/standalone";
 import { useEffect } from "react";
 import tutorialStore from "tutorialkit:store";
@@ -26,10 +27,6 @@ function setupPrettier() {
   const cleanups: (() => void)[] = [];
 
   for (const filename in filenames) {
-    if (!filename.endsWith(".ts") && !filename.endsWith(".tsx")) {
-      continue;
-    }
-
     let timeout: NodeJS.Timeout;
 
     const unsubscribe = tutorialStore.onDocumentChanged(filename, (doc) => {
@@ -37,8 +34,8 @@ function setupPrettier() {
 
       timeout = setTimeout(async () => {
         const code = await prettier.format(doc.value.toString(), {
-          parser: "typescript",
-          plugins: [ts, estree],
+          parser: doc.filePath.endsWith(".css") ? "css" : "typescript",
+          plugins: [ts, estree, postcss],
         });
         tutorialStore.updateFile(filename, code);
       }, 1_000);
