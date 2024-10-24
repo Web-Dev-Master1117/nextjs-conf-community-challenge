@@ -1,4 +1,4 @@
-export default function EnlargeImage({ src }) {
+export default function EnlargeImage({ src }: { src: string }) {
   function handleClick() {
     var background = document.createElement("div");
     background.className =
