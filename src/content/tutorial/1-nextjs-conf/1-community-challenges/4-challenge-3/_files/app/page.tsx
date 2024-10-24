@@ -5,7 +5,7 @@ const regularText =
 // Use in img src
 const nextjsConfHero = "/nextjs-conf-hero.svg";
 const nextjsConfLogo = "/nextjs-conf-logo.svg";
-const neztjsLogo = "/nextjs-logo.svg";
+const nextjsLogo = "/nextjs-logo.svg";
 
 export default function Page() {
   return <p>TODO</p>;
