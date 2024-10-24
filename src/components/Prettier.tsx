@@ -5,6 +5,15 @@ import * as prettier from "prettier/standalone";
 import { useEffect } from "react";
 import tutorialStore from "tutorialkit:store";
 
+const format = async () => {
+  const doc = tutorialStore.currentDocument.get()!;
+  const code = await prettier.format(doc.value.toString(), {
+    parser: doc.filePath.endsWith(".css") ? "css" : "typescript",
+    plugins: [ts, estree, postcss],
+  });
+  tutorialStore.setCurrentDocumentContent(code);
+};
+
 export default function Prettier() {
   useEffect(() => {
     tutorialStore.lessonFullyLoaded.listen((loaded) => {
@@ -21,14 +30,7 @@ export default function Prettier() {
           prettierButton.id = "prettier";
           prettierButton.className = "panel-button px-2 py-0.5 mr-3 -my-1";
           prettierButton.textContent = "Format";
-          prettierButton.addEventListener("click", async () => {
-            const doc = tutorialStore.currentDocument.get()!;
-            const code = await prettier.format(doc.value.toString(), {
-              parser: doc.filePath.endsWith(".css") ? "css" : "typescript",
-              plugins: [ts, estree, postcss],
-            });
-            tutorialStore.setCurrentDocumentContent(code);
-          });
+          prettierButton.addEventListener("click", format);
           editorResetButton.parentNode?.insertBefore(
             prettierButton,
             editorResetButton
@@ -38,6 +40,18 @@ export default function Prettier() {
           prettierIcon.src = "/prettier-icon.svg";
           prettierIcon.className = "dark:invert";
           prettierButton.prepend(prettierIcon);
+
+          const handleSave = (event: KeyboardEvent) => {
+            if (
+              (event.metaKey || event.ctrlKey) &&
+              event.key.toLowerCase() === "s"
+            ) {
+              event.preventDefault();
+              format();
+            }
+          };
+
+          document.addEventListener("keydown", handleSave);
         }
       }
     });
