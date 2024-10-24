@@ -13,6 +13,15 @@ export default function EnlargeImage({ src }: { src: string }) {
     background.appendChild(img);
 
     document.body.appendChild(background);
+
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        document.body.removeChild(background);
+      }
+      document.removeEventListener("keydown", handleEscape);
+    };
+
+    document.addEventListener("keydown", handleEscape);
   }
 
   return (
