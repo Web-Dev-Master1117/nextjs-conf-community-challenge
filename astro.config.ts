@@ -6,5 +6,4 @@ export default defineConfig({
     enabled: false,
   },
   integrations: [tutorialkit()],
-  output: "server",
 });
